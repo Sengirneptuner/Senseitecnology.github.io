@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Directorio de faucets y sitios PTC para ganar criptomonedas. Enlaces directos y fáciles de usar.">
+  <title>FaucetHub · Directorio de Faucets y PTC</title>
+  <style>
+    /* ===== RESET Y VARIABLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-body: #1a1a2e;
+      --bg-card: #16213e;
+      --bg-card-hover: #1e2a4a;
+      --bg-header: #0f3460;
+      --accent: #e94560;
+      --accent-hover: #ff6b81;
+      --text-primary: #eaeaea;
+      --text-secondary: #a0a0b0;
+      --text-muted: #6c6c80;
+      --border: #2a2a4a;
+      --radius: 12px;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      --transition: 0.25s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 0 16px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 0 20px;
+      text-align: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .logo svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--accent);
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .logo h1 span {
+      color: var(--accent);
+    }
+
+    header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ===== BARRA DE BÚSQUEDA ===== */
+    .search-bar {
+      max-width: 500px;
+      margin: 20px auto 0;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px 20px 12px 45px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-bar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.2);
+    }
+
+    .search-bar input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-bar svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      fill: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* ===== FILTROS ===== */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 20px auto 30px;
+      max-width: 800px;
+    }
+
+    .filter-btn {
+      padding: 7px 16px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* ===== GRID DE FAUCETS ===== */
+    .faucet-grid {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .faucet-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .faucet-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .faucet-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .faucet-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Icono de la moneda */
+    .faucet-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .faucet-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .faucet-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .faucet-card .coin-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 50px;
+      background: rgba(233, 69, 96, 0.15);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .faucet-card .description {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      flex-grow: 1;
+    }
+
+    .faucet-card .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    /* Botón de enlace */
+    .btn-visit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .btn-visit:hover {
+      background: var(--accent-hover);
+      transform: scale(1.02);
+    }
+
+    .btn-visit svg {
+      width: 14px;
+      height: 14px;
+      fill: #fff;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .logo h1 {
+        font-size: 1.4rem;
+      }
+
+      .faucet-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-btn {
+        font-size: 0.78rem;
+        padding: 6px 12px;
+      }
+    }
+
+    /* Animación de carga */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .faucet-card {
+      animation: fadeIn 0.4s ease forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo">
+      <!-- Icono de Bitcoin como logo -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.5 7.5c.5 1.5-.5 3-2 3.5 1.5.5 2.5 2 2 3.5-.5 1.5-2 2.5-3.5 2.5H8v-2h1.5v-4H8v-2h4.5c1 0 2 .5 2.5 1.5l-2 1c-.25-.5-.75-.75-1.25-.75H10v1.5h2c1.5 0 3 1 3.5 2.5-.5 1-1.5 1.5-2.5 1.5H10v2h3c1.5 0 3-1 3.5-2.5.25-.75 0-1.5-.5-2l2-1z"/>
+      </svg>
+      <h1>Faucet<span>Hub</span></h1>
+    </div>
+    <p>Directorio de faucets y sitios PTC para ganar criptomonedas. Enlaces directos, sin intermediarios.</p>
+  </header>
+
+  <!-- ===== BARRA DE BÚSQUEDA ===== -->
+  <div class="search-bar">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+    <input type="text" id="searchInput" placeholder="Buscar faucet, moneda o sitio..." aria-label="Buscar faucet">
+  </div>
+
+  <!-- ===== FILTROS ===== -->
+  <div class="filters" role="group" aria-label="Filtrar por tipo">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="faucet">Faucets</button>
+    <button class="filter-btn" data-filter="ptc">PTC</button>
+    <button class="filter-btn" data-filter="multicoin">Multicoin</button>
+    <button class="filter-btn" data-filter="btc">Bitcoin</button>
+  </div>
+
+  <!-- ===== GRID DE FAUCETS ===== -->
+  <main class="faucet-grid" id="faucetGrid">
+
+    <!-- 1. FreePepeCoin PTC -->
+    <article class="faucet-card" data-category="ptc" data-coin="pepe">
+      <div class="faucet-icon">
+        <!-- Icono genérico de PTC -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      </div>
+      <h3>FreePepeCoin PTC <span class="coin-tag">PTC</span></h3>
+      <p class="description">Gana PEPE viendo anuncios. Pagos rápidos y baja inversión de tiempo.</p>
+      <div class="meta">
+        <span>⏱ ~30 seg por anuncio</span>
+        <span>💎 PEPE</span>
+      </div>
+      <a href="https://ptc.freepepecoin.com/claim.php" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar FreePepeCoin PTC">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- 2. Lootizy -->
+    <article class="faucet-card" data-category="ptc" data-coin="multi">
+      <div class="faucet-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f0b90b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 6v6l4 2"></path>
+        </svg>
+      </div>
+      <h3>Lootizy <span class="coin-tag">PTC</span></h3>
+      <p class="description">Plataforma de enlaces PTC. Gana cripto por completar tareas simples.</p>
+      <div class="meta">
+        <span>🔗 Enlaces PTC</span>
+        <span>💎 Multi</span>
+      </div>
+      <a href="https://lootizy.com/links" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar Lootizy">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- 3. SatoshiFaucet -->
+    <article class="faucet-card" data-category="faucet" data-coin="btc">
+      <div class="faucet-icon">
+        <!-- Icono Bitcoin SVG -->
+        <svg viewBox="0 0 24 24" fill="#f7931a">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.5 7.5c.5 1.5-.5 3-2 3.5 1.5.5 2.5 2 2 3.5-.5 1.5-2 2.5-3.5 2.5H8v-2h1.5v-4H8v-2h4.5c1 0 2 .5 2.5 1.5l-2 1c-.25-.5-.75-.75-1.25-.75H10v1.5h2c1.5 0 3 1 3.5 2.5-.5 1-1.5 1.5-2.5 1.5H10v2h3c1.5 0 3-1 3.5-2.5.25-.75 0-1.5-.5-2l2-1z"/>
+        </svg>
+      </div>
+      <h3>SatoshiFaucet <span class="coin-tag">Faucet</span></h3>
+      <p class="description">Faucet clásico de Bitcoin. Reclama satoshis cada pocos minutos.</p>
+      <div class="meta">
+        <span>⏱ Cada 5 min</span>
+        <span>₿ BTC</span>
+      </div>
+      <a href="https://satoshifaucet.io/" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar SatoshiFaucet">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- 4. FaucetCrypto -->
+    <article class="faucet-card" data-category="faucet" data-coin="multi">
+      <div class="faucet-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00d395" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+      <h3>FaucetCrypto <span class="coin-tag">Multicoin</span></h3>
+      <p class="description">Faucet y PTC con múltiples monedas. Dashboard completo y retiros a FaucetPay.</p>
+      <div class="meta">
+        <span>⏱ Variable</span>
+        <span>💎 Multi</span>
+      </div>
+      <a href="https://faucetcrypto.com/dashboard/ptc" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar FaucetCrypto">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- 5. AdBTC -->
+    <article class="faucet-card" data-category="ptc" data-coin="btc">
+      <div class="faucet-icon">
+        <svg viewBox="0 0 24 24" fill="#f7931a">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.5 7.5c.5 1.5-.5 3-2 3.5 1.5.5 2.5 2 2 3.5-.5 1.5-2 2.5-3.5 2.5H8v-2h1.5v-4H8v-2h4.5c1 0 2 .5 2.5 1.5l-2 1c-.25-.5-.75-.75-1.25-.75H10v1.5h2c1.5 0 3 1 3.5 2.5-.5 1-1.5 1.5-2.5 1.5H10v2h3c1.5 0 3-1 3.5-2.5.25-.75 0-1.5-.5-2l2-1z"/>
+        </svg>
+      </div>
+      <h3>AdBTC <span class="coin-tag">PTC</span></h3>
+      <p class="description">El PTC de Bitcoin más popular. Gana satoshis por ver anuncios.</p>
+      <div class="meta">
+        <span>⏱ ~30 seg</span>
+        <span>₿ BTC</span>
+      </div>
+      <a href="https://adbtc.top/index/reg" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar AdBTC">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- 6. DutchyCorp AutoFaucet -->
+    <article class="faucet-card" data-category="faucet" data-coin="multi">
+      <div class="faucet-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6c5ce7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <h3>DutchyCorp <span class="coin-tag">AutoFaucet</span></h3>
+      <p class="description">Auto-faucet que reclama por ti. Soporta múltiples monedas y FaucetPay.</p>
+      <div class="meta">
+        <span>⏱ Automático</span>
+        <span>💎 Multi</span>
+      </div>
+      <a href="https://autofaucet.dutchycorp.space/" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar DutchyCorp">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- 7. Mix-Crypto -->
+    <article class="faucet-card" data-category="faucet" data-coin="multi">
+      <div class="faucet-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+      <h3>Mix-Crypto <span class="coin-tag">Faucet</span></h3>
+      <p class="description">Faucet multicoin con recompensas variadas. Interfaz simple y rápida.</p>
+      <div class="meta">
+        <span>⏱ Variable</span>
+        <span>💎 Multi</span>
+      </div>
+      <a href="https://mix-crypto.com/" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar Mix-Crypto">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- 8. Crypto-Faucet.ch -->
+    <article class="faucet-card" data-category="faucet" data-coin="multi">
+      <div class="faucet-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00b894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      </div>
+      <h3>Crypto-Faucet.ch <span class="coin-tag">Faucet</span></h3>
+      <p class="description">Faucet suizo con múltiples criptos. Requiere registro pero pagos fiables.</p>
+      <div class="meta">
+        <span>⏱ Cada 10 min</span>
+        <span>💎 Multi</span>
+      </div>
+      <a href="https://crypto-faucet.ch/login/" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar Crypto-Faucet.ch">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- 9. ZerAds (directorio de sitios) -->
+    <article class="faucet-card" data-category="ptc" data-coin="multi">
+      <div class="faucet-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f0b90b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </div>
+      <h3>ZerAds <span class="coin-tag">Directorio</span></h3>
+      <p class="description">Listado de sitios PTC y faucets verificados. Filtra por moneda y pago.</p>
+      <div class="meta">
+        <span>🔍 Directorio</span>
+        <span>💎 Multi</span>
+      </div>
+      <a href="https://zerads.com/index.php?view=sites&sortby=&p=1&" target="_blank" rel="noopener" class="btn-visit" aria-label="Visitar ZerAds">
+        Ir al sitio
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>FaucetHub · Directorio de faucets y PTC. Los enlaces son de terceros; úsalos bajo tu responsabilidad.</p>
+    <p style="margin-top: 8px;">
+      Hecho con ❤️ para la comunidad cripto · 
+      <a href="https://faucetpay.io/earn/faucets?category=1&coin=btc" target="_blank" rel="noopener">Ver más faucets en FaucetPay</a>
+    </p>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      const searchInput = document.getElementById('searchInput');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.faucet-card');
+
+      let activeFilter = 'all';
+
+      // Función para filtrar tarjetas
+      function filterCards() {
+        const query = searchInput.value.toLowerCase().trim();
+
+        cards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          const category = card.dataset.category || '';
+          const coin = card.dataset.coin || '';
+
+          // Coincidencia con búsqueda
+          const matchesSearch = query === '' || text.includes(query) || coin.includes(query);
+
+          // Coincidencia con filtro
+          let matchesFilter = false;
+          if (activeFilter === 'all') {
+            matchesFilter = true;
+          } else if (activeFilter === 'multicoin') {
+            matchesFilter = category === 'faucet' || category === 'ptc'; // simplificación
+          } else {
+            matchesFilter = category === activeFilter;
+          }
+
+          // Mostrar u ocultar
+          if (matchesSearch && matchesFilter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      // Evento de búsqueda
+      searchInput.addEventListener('input', filterCards);
+
+      // Eventos de filtro
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeFilter = btn.dataset.filter;
+          filterCards();
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
