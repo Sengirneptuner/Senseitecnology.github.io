@@ -3,249 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="GGCPU · Foro, blog y laboratorio de minería CPU. Token propio, submonedas y algoritmos reales.">
+<meta name="description" content="GGCPU · Foro, blog y laboratorio de minería CPU. Guías reales de DERO, Monero y más algoritmos.">
 <title>GGCPU · CPU Mining Lab & Forum</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  :root{
-    --bg:#05060a;--bg-2:#0a0d14;--panel:#0d1117;--panel-2:#111827;--line:#1f2937;
-    --neon:#00ff9c;--neon-2:#00d4ff;--magenta:#ff2bd6;--amber:#ffb800;
-    --text:#d1fae5;--text-dim:#7a8a99;--text-mute:#4b5563;--danger:#ff3b5c;
-    --radius:6px;--mono:'JetBrains Mono','Fira Code','Courier New',monospace;
-  }
-  html{scroll-behavior:smooth}
-  body{
-    font-family:var(--mono);
-    background:
-      radial-gradient(ellipse at top left, rgba(0,255,156,.06), transparent 40%),
-      radial-gradient(ellipse at bottom right, rgba(255,43,214,.05), transparent 40%),
-      var(--bg);
-    color:var(--text);line-height:1.55;min-height:100vh;overflow-x:hidden;
-  }
-  body::before{
-    content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
-    background:repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0 1px,transparent 1px 3px);
-    opacity:.35;mix-blend-mode:overlay;
-  }
-  a{color:var(--neon);text-decoration:none}
-  a:hover{text-shadow:0 0 8px var(--neon)}
-
-  /* TOP BAR */
-  .topbar{
-    position:sticky;top:0;z-index:100;background:rgba(5,6,10,.85);
-    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
-    padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
-    gap:16px;flex-wrap:wrap;
-  }
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:1px}
-  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--neon);
-    box-shadow:0 0 10px var(--neon);animation:pulse 1.6s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-  .brand span{color:var(--neon)}
-  .brand small{color:var(--text-dim);font-weight:400;font-size:.7rem;margin-left:6px}
-  .nav{display:flex;gap:4px;flex-wrap:wrap}
-  .nav a{padding:6px 12px;border:1px solid var(--line);border-radius:var(--radius);
-    color:var(--text-dim);font-size:.78rem;transition:.2s}
-  .nav a:hover,.nav a.active{color:var(--neon);border-color:var(--neon);
-    background:rgba(0,255,156,.05);text-shadow:0 0 6px var(--neon)}
-  .conn{font-size:.72rem;color:var(--text-dim);display:flex;align-items:center;gap:6px}
-  .conn b{color:var(--neon)}
-
-  /* HERO */
-  .hero{max-width:1280px;margin:0 auto;padding:50px 20px 30px;
-    display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center}
-  @media(max-width:860px){.hero{grid-template-columns:1fr;padding-top:30px}}
-  .hero h1{font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
-  .hero h1 .glitch{color:var(--neon);position:relative;display:inline-block;
-    text-shadow:0 0 12px rgba(0,255,156,.6)}
-  .hero h1 .glitch::after{content:'GGCPU';position:absolute;left:2px;top:0;color:var(--magenta);
-    opacity:.5;clip-path:inset(0 0 60% 0);animation:glitch 3s infinite}
-  @keyframes glitch{
-    0%,90%,100%{transform:translate(0)}
-    92%{transform:translate(-2px,1px)}
-    94%{transform:translate(2px,-1px)}
-    96%{transform:translate(-1px,-1px)}
-  }
-  .hero p{color:var(--text-dim);max-width:560px;font-size:.9rem;margin-bottom:18px}
-  .hero .cta{display:flex;gap:10px;flex-wrap:wrap}
-  .btn{padding:10px 18px;border-radius:var(--radius);font-family:var(--mono);
-    font-size:.82rem;cursor:pointer;border:1px solid var(--neon);background:transparent;
-    color:var(--neon);transition:.2s;font-weight:600;text-transform:uppercase;letter-spacing:1px}
-  .btn:hover{background:var(--neon);color:#000;box-shadow:0 0 20px rgba(0,255,156,.5)}
-  .btn.ghost{border-color:var(--line);color:var(--text-dim)}
-  .btn.ghost:hover{border-color:var(--neon-2);color:var(--neon-2);background:transparent;box-shadow:none}
-
-  /* TERMINAL */
-  .terminal{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-    overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.6)}
-  .terminal-bar{background:var(--panel-2);padding:8px 12px;display:flex;align-items:center;
-    gap:6px;border-bottom:1px solid var(--line);font-size:.7rem;color:var(--text-dim)}
-  .terminal-bar i{width:10px;height:10px;border-radius:50%;display:inline-block}
-  .terminal-bar .r{background:#ff5f56}.terminal-bar .y{background:#ffbd2e}.terminal-bar .g{background:#27c93f}
-  .terminal-body{padding:14px;font-size:.78rem;color:var(--neon);min-height:180px}
-  .terminal-body .c{color:var(--text-dim)}
-  .terminal-body .k{color:var(--neon-2)}
-  .terminal-body .w{color:var(--amber)}
-  .cursor{display:inline-block;width:8px;height:14px;background:var(--neon);
-    animation:blink 1s steps(2) infinite;vertical-align:middle}
-  @keyframes blink{50%{opacity:0}}
-
-  /* LAYOUT */
-  .layout{max-width:1280px;margin:0 auto;padding:20px;
-    display:grid;grid-template-columns:260px 1fr;gap:24px}
-  @media(max-width:960px){.layout{grid-template-columns:1fr}}
-
-  /* SIDEBAR */
-  aside{position:sticky;top:70px;align-self:start;background:var(--panel);
-    border:1px solid var(--line);border-radius:var(--radius);padding:16px;
-    max-height:calc(100vh - 90px);overflow-y:auto}
-  aside h4{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;
-    color:var(--text-mute);margin-bottom:10px;border-bottom:1px dashed var(--line);
-    padding-bottom:6px;margin-top:18px}
-  aside h4:first-child{margin-top:0}
-  aside .stat{display:flex;justify-content:space-between;font-size:.75rem;
-    padding:5px 0;color:var(--text-dim)}
-  aside .stat b{color:var(--neon)}
-  aside .stat .up{color:var(--neon)}
-  aside .stat .down{color:var(--danger)}
-  aside ul{list-style:none;margin-top:8px}
-  aside li{padding:6px 8px;font-size:.78rem;border-radius:4px;cursor:pointer;
-    color:var(--text-dim);transition:.15s}
-  aside li:hover,aside li.active{background:rgba(0,255,156,.08);color:var(--neon)}
-  aside li::before{content:'\25B8 ';color:var(--neon)}
-
-  /* MAIN */
-  main{min-width:0}
-  .section{margin-bottom:40px}
-  .section-head{display:flex;align-items:center;justify-content:space-between;
-    gap:12px;margin-bottom:16px;flex-wrap:wrap}
-  .section-head h2{font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;
-    display:flex;align-items:center;gap:10px}
-  .section-head h2::before{content:'';width:4px;height:18px;background:var(--neon);
-    box-shadow:0 0 8px var(--neon)}
-  .section-head .sub{font-size:.72rem;color:var(--text-mute)}
-
-  /* FORUM */
-  .forum-toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-  .forum-toolbar input{flex:1;min-width:200px;padding:9px 12px;background:var(--panel);
-    border:1px solid var(--line);border-radius:var(--radius);color:var(--text);
-    font-family:var(--mono);font-size:.8rem;outline:none}
-  .forum-toolbar input:focus{border-color:var(--neon);box-shadow:0 0 0 2px rgba(0,255,156,.15)}
-  .thread{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;
-    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-    padding:12px 14px;margin-bottom:8px;transition:.2s;cursor:pointer}
-  .thread:hover{border-color:var(--neon);background:var(--panel-2);transform:translateX(3px)}
-  .thread .avatar{width:40px;height:40px;border-radius:var(--radius);
-    background:linear-gradient(135deg,var(--neon),var(--neon-2));
-    display:flex;align-items:center;justify-content:center;
-    font-weight:700;color:#000;font-size:.9rem}
-  .thread .info h3{font-size:.88rem;font-weight:600;margin-bottom:3px}
-  .thread .info h3 .tag{font-size:.62rem;padding:1px 6px;border-radius:3px;margin-left:6px;
-    background:rgba(0,212,255,.15);color:var(--neon-2);font-weight:600;
-    text-transform:uppercase;letter-spacing:.5px;vertical-align:middle}
-  .thread .info h3 .tag.hot{background:rgba(255,43,214,.15);color:var(--magenta)}
-  .thread .info p{font-size:.72rem;color:var(--text-mute)}
-  .thread .meta{text-align:right;font-size:.7rem;color:var(--text-dim)}
-  .thread .meta b{color:var(--neon);display:block}
-
-  /* ALGO ACCORDION */
-  .algo{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-    margin-bottom:8px;overflow:hidden}
-  .algo summary{padding:14px 16px;cursor:pointer;list-style:none;display:flex;
-    align-items:center;justify-content:space-between;gap:12px;
-    font-size:.85rem;font-weight:600;transition:.2s}
-  .algo summary::-webkit-details-marker{display:none}
-  .algo summary:hover{background:var(--panel-2);color:var(--neon)}
-  .algo summary .arrow{transition:.3s;color:var(--neon);font-size:1rem}
-  .algo[open] summary .arrow{transform:rotate(90deg)}
-  .algo summary .badge{font-size:.62rem;padding:2px 8px;border-radius:50px;
-    margin-left:8px;background:rgba(0,255,156,.1);color:var(--neon);
-    border:1px solid rgba(0,255,156,.3);font-weight:600;letter-spacing:.5px}
-  .algo summary .hash{font-size:.68rem;color:var(--text-mute);font-weight:400;margin-left:auto}
-  .algo-body{padding:0 16px 16px;font-size:.78rem;color:var(--text-dim);
-    border-top:1px solid var(--line)}
-  .algo-body p{margin:12px 0 8px}
-  .algo-body table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.72rem}
-  .algo-body th,.algo-body td{text-align:left;padding:6px 8px;
-    border-bottom:1px solid var(--line)}
-  .algo-body th{color:var(--text-mute);font-weight:600;text-transform:uppercase;
-    font-size:.65rem;letter-spacing:1px}
-  .algo-body td b{color:var(--neon)}
-  .algo-body td .neg{color:var(--danger)}
-  .algo-body .links{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-  .algo-body .links a{font-size:.68rem;padding:4px 10px;border:1px solid var(--line);
-    border-radius:4px;color:var(--neon-2);transition:.2s}
-  .algo-body .links a:hover{border-color:var(--neon-2);background:rgba(0,212,255,.08)}
-  .warn{font-size:.72rem;padding:8px 12px;border-left:3px solid var(--amber);
-    background:rgba(255,184,0,.05);color:var(--amber);margin-top:10px;
-    border-radius:0 4px 4px 0}
-  .warn-danger{border-left-color:var(--danger);background:rgba(255,59,92,.06);color:#ff8fa3}
-
-  /* TOKEN CARD */
-  .token-card{background:linear-gradient(135deg,rgba(0,255,156,.08),rgba(255,43,214,.05));
-    border:1px solid rgba(0,255,156,.3);border-radius:var(--radius);padding:18px;
-    margin-bottom:16px;position:relative;overflow:hidden}
-  .token-card::before{content:'GGCPU';position:absolute;right:-10px;bottom:-30px;
-    font-size:6rem;font-weight:900;color:rgba(0,255,156,.04);letter-spacing:-6px;
-    pointer-events:none}
-  .token-card .row{display:flex;justify-content:space-between;align-items:baseline;
-    gap:10px;flex-wrap:wrap}
-  .token-card h3{font-size:1rem;letter-spacing:1px}
-  .token-card .price{font-size:1.6rem;color:var(--neon);font-weight:700;
-    text-shadow:0 0 10px rgba(0,255,156,.4)}
-  .token-card .price small{font-size:.7rem;color:var(--text-dim);font-weight:400}
-  .token-card .delta{font-size:.75rem;color:var(--neon)}
-  .token-card .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
-    gap:10px;margin-top:14px;position:relative;z-index:1}
-  .token-card .stats div{background:rgba(0,0,0,.3);padding:8px 10px;
-    border-radius:4px;border:1px solid var(--line)}
-  .token-card .stats span{display:block;font-size:.62rem;color:var(--text-mute);
-    text-transform:uppercase;letter-spacing:1px}
-  .token-card .stats b{color:var(--text);font-size:.85rem}
-
-  /* CARDS / SUBMONEDAS / ROADMAP */
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(max-width:700px){.grid-2{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-    padding:14px}
-  .card h4{font-size:.8rem;margin-bottom:8px;color:var(--neon-2);letter-spacing:1px;
-    text-transform:uppercase}
-  .card ul{list-style:none;font-size:.75rem;color:var(--text-dim)}
-  .card li{padding:4px 0;border-bottom:1px dashed rgba(31,41,55,.6)}
-  .card li:last-child{border:0}
-  .card li b{color:var(--text)}
-  .card li .pct{float:right;color:var(--neon);font-size:.7rem}
-
-  .sub-table{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
-  .sub-table th,.sub-table td{text-align:left;padding:8px 10px;
-    border-bottom:1px solid var(--line)}
-  .sub-table th{color:var(--text-mute);font-size:.65rem;text-transform:uppercase;
-    letter-spacing:1px;font-weight:600}
-  .sub-table td b{color:var(--neon)}
-  .sub-table tr:hover{background:rgba(0,255,156,.03)}
-
-  .roadmap{display:grid;gap:10px}
-  .phase{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line);
-    border-radius:var(--radius);padding:12px 14px;transition:.2s}
-  .phase.done{border-left-color:var(--neon)}
-  .phase.active{border-left-color:var(--amber)}
-  .phase h5{font-size:.8rem;margin-bottom:4px;color:var(--text)}
-  .phase p{font-size:.72rem;color:var(--text-dim)}
-  .phase .status{font-size:.62rem;font-weight:600;letter-spacing:1px;
-    padding:2px 8px;border-radius:50px;float:right}
-  .phase.done .status{background:rgba(0,255,156,.15);color:var(--neon)}
-  .phase.active .status{background:rgba(255,184,0,.15);color:var(--amber)}
-  .phase:not(.done):not(.active) .status{background:rgba(122,138,153,.15);color:var(--text-dim)}
-
-  /* FOOTER */
-  footer{max-width:1280px;margin:40px auto 20px;padding:20px;text-align:center;
-    border-top:1px solid var(--line);color:var(--text-mute);font-size:.72rem}
-  footer .ascii{color:var(--neon);font-size:.65rem;line-height:1.2;
-    margin-bottom:10px;opacity:.6;white-space:pre;font-family:var(--mono)}
-  .warn-global{max-width:1280px;margin:0 auto 20px;padding:10px 16px;
-    background:rgba(255,59,92,.06);border-left:3px solid var(--danger);
-    color:#ff8fa3;font-size:.75rem;border-radius:0 4px 4px 0}
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -256,23 +16,34 @@
     <span>GGCPU</span><small>// cpu mining lab</small>
   </div>
   <nav class="nav">
-    <a href="#foro" class="active">Foro</a>
-    <a href="#blog">Blog CPU</a>
+    <a href="#comunidad" class="active">Comunidad</a>
+    <a href="#foro">Foro</a>
+    <a href="#monedas">Monedas</a>
     <a href="#token">Token</a>
     <a href="#submonedas">Submonedas</a>
     <a href="#roadmap">Roadmap</a>
   </nav>
-  <div class="conn">&#9679; nodo: <b>online</b> &middot; ping 12ms</div>
+  <div class="user-area">
+    <button class="btn-login" id="btnLogin">
+      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      <span>Entrar con Google</span>
+    </button>
+    <div class="user-profile" id="userProfile" hidden>
+      <img id="userAvatar" class="user-avatar" alt="avatar">
+      <span id="userName" class="user-name"></span>
+      <button id="btnLogout" class="btn ghost" style="padding:5px 10px;font-size:.65rem">Salir</button>
+    </div>
+  </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div>
     <h1>Minar con CPU.<br><span class="glitch">GGCPU</span> es el laboratorio.</h1>
-    <p>Foro, blog t&eacute;cnico y econom&iacute;a interna. Algoritmos reales, precios reales, submonedas propias. Sin blockchain propia: token ERC-20 en Base y trabajo verificado en el navegador.</p>
+    <p>Foro, blog técnico y guías reales por algoritmo. Proyecto principal: <b>DERO con AstroBWT en CPU</b> (incluye Termux). Sin blockchain propia: token ERC-20 en Base y trabajo verificado.</p>
     <div class="cta">
       <button class="btn">Conectar wallet</button>
-      <button class="btn ghost">Descargar agente</button>
+      <button class="btn ghost">Ver guía DERO →</button>
     </div>
   </div>
   <div class="terminal">
@@ -283,50 +54,46 @@
     <div class="terminal-body">
       <div class="c"># inicializando agente GGCPU...</div>
       <div><span class="k">$</span> ggcpu --detect --bench</div>
-      <div>cpu: <span class="w">8 cores</span> &middot; ram: <span class="w">16GB</span> &middot; algo: <span class="k">randomx</span></div>
+      <div>cpu: <span class="w">8 cores</span> &middot; ram: <span class="w">16GB</span> &middot; algo: <span class="k">astrobwt</span></div>
       <div>bench: <span class="w">1.2 kh/s</span> &middot; power: <span class="w">65W</span></div>
       <div><span class="k">$</span> ggcpu --connect node.ggcpu.io</div>
       <div>handshake ok &middot; session <span class="w">#A7F3</span></div>
-      <div>minting <span class="k">GGCPU</span> &middot; submoneda: <span class="w">$PEPE-CPU</span></div>
+      <div>minting <span class="k">GGCPU</span> &middot; proyecto: <span class="w">DERO-CPU</span></div>
       <div class="cursor"></div>
     </div>
   </div>
 </section>
 
-<!-- LAYOUT -->
 <div class="layout">
-
-  <!-- SIDEBAR -->
-  <aside>
-    <h4>Network</h4>
-    <div class="stat"><span>Nodos activos</span><b>1,247</b></div>
-    <div class="stat"><span>Hashrate total</span><b>3.2 MH/s</b></div>
-    <div class="stat"><span>Usuarios</span><b>8,912</b></div>
-    <div class="stat"><span>GGCPU precio</span><b class="up">$0.0412 &#9650;</b></div>
-    <div class="stat"><span>Burn 24h</span><b>12,400</b></div>
-
-    <h4>Submonedas</h4>
-    <ul>
-      <li class="active">$PEPE-CPU</li>
-      <li>$DOGE-CPU</li>
-      <li>$XMR-CPU</li>
-      <li>$BTC-CPU</li>
-      <li>$SOL-CPU</li>
-    </ul>
-
-    <h4>Algoritmos</h4>
-    <ul>
-      <li>RandomX (XMR)</li>
-      <li>Yespower (BTC)</li>
-      <li>KawPow (RVN)</li>
-      <li>Autolykos2 (ERG)</li>
-      <li>Scrypt (LTC)</li>
-      <li>Yescrypt</li>
-    </ul>
-  </aside>
-
-  <!-- MAIN -->
   <main>
+
+    <!-- COMUNIDAD (ex-Network) -->
+    <section class="section" id="comunidad">
+      <div class="section-head">
+        <h2>Comunidad</h2>
+        <span class="sub">usuarios reales · login con Google</span>
+      </div>
+      <div class="community-bar">
+        <div class="community-login">
+          <button class="btn-login" id="btnLogin2">
+            <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+            <span>Entrar con Google</span>
+          </button>
+          <div class="user-profile" id="userProfile2" hidden>
+            <img id="userAvatar2" class="user-avatar" alt="avatar">
+            <span id="userName2" class="user-name"></span>
+            <button id="btnLogout2" class="btn ghost" style="padding:5px 10px;font-size:.65rem">Salir</button>
+          </div>
+          <p class="community-hint">Tu perfil aparecerá en el foro, en el ranking de mineros y en tus guías publicadas.</p>
+        </div>
+        <div class="community-stats">
+          <div><span>Nodos activos</span><b>1,247</b></div>
+          <div><span>Hashrate total</span><b>3.2 MH/s</b></div>
+          <div><span>Usuarios</span><b>8,912</b></div>
+          <div><span>GGCPU precio</span><b class="up">$0.0412 ▲</b></div>
+        </div>
+      </div>
+    </section>
 
     <!-- TOKEN -->
     <section class="section" id="token">
@@ -339,7 +106,7 @@
           <h3>$GGCPU / USDC</h3>
           <div class="price">$0.0412 <small>USDC</small></div>
         </div>
-        <div class="delta">&#9650; +7.4% (24h) &middot; liquidez en Uniswap Base</div>
+        <div class="delta">▲ +7.4% (24h) &middot; liquidez en Uniswap Base</div>
         <div class="stats">
           <div><span>Supply</span><b>42.0M</b></div>
           <div><span>Burn</span><b>12.4K / 24h</b></div>
@@ -348,7 +115,7 @@
         </div>
       </div>
       <div class="warn">
-        &#9888; El token se mintea solo cuando el backend valida trabajo CPU. No hay miner&iacute;a on-chain real desde el navegador: ser&iacute;a insegura y abusable. El &quot;minado&quot; es la capa de juego; el valor viene del burn y la utilidad.
+        ⚠ El token se mintea solo cuando el backend valida trabajo CPU. No hay minería on-chain real desde el navegador.
       </div>
     </section>
 
@@ -363,226 +130,204 @@
         <button class="btn ghost" style="padding:9px 14px">+ Nuevo hilo</button>
       </div>
       <div id="threads">
+        <div class="thread" data-tags="dero astrobwt termux tutorial">
+          <div class="avatar">DR</div>
+          <div class="info">
+            <h3>DERO en Termux: guía completa para minar con AstroBWT <span class="tag hot">hot</span></h3>
+            <p>por admin &middot; hace 1h &middot; 64 respuestas</p>
+          </div>
+          <div class="meta"><b>+412</b> GGCPU</div>
+        </div>
         <div class="thread" data-tags="randomx xmr cpu ryzen">
           <div class="avatar">RX</div>
           <div class="info">
-            <h3>RandomX en Ryzen 5 3600: 4.2 kh/s con 65W <span class="tag hot">hot</span></h3>
+            <h3>RandomX en Ryzen 5 3600: 4.2 kh/s con 65W <span class="tag">algo</span></h3>
             <p>por cripto_miner_77 &middot; hace 2h &middot; 42 respuestas</p>
           </div>
           <div class="meta"><b>+128</b> GGCPU</div>
         </div>
-        <div class="thread" data-tags="yespower btc cpu vieja">
-          <div class="avatar">YP</div>
+        <div class="thread" data-tags="astrobwt dero hardware celular">
+          <div class="avatar">AB</div>
           <div class="info">
-            <h3>Yespower sigue siendo rentable en CPU viejas? <span class="tag">algo</span></h3>
-            <p>por old_pc_king &middot; hace 5h &middot; 18 respuestas</p>
-          </div>
-          <div class="meta"><b>+64</b> GGCPU</div>
-        </div>
-        <div class="thread" data-tags="submoneda pepe tutorial">
-          <div class="avatar">PP</div>
-          <div class="info">
-            <h3>C&oacute;mo minar $PEPE-CPU dentro de GGCPU <span class="tag">tutorial</span></h3>
-            <p>por admin &middot; hace 1d &middot; 91 respuestas</p>
-          </div>
-          <div class="meta"><b>+312</b> GGCPU</div>
-        </div>
-        <div class="thread" data-tags="hardware celular nodo viejo">
-          <div class="avatar">MO</div>
-          <div class="info">
-            <h3>Celulares viejos como nodos: vale la pena? <span class="tag">debate</span></h3>
+            <h3>AstroBWT vs RandomX: cuál rinde mejor en móvil <span class="tag">debate</span></h3>
             <p>por node_farmer &middot; hace 1d &middot; 55 respuestas</p>
           </div>
           <div class="meta"><b>+201</b> GGCPU</div>
         </div>
-        <div class="thread" data-tags="kawpow gpu cpu rvn">
-          <div class="avatar">KP</div>
-          <div class="info">
-            <h3>KawPow en CPU: por qu&eacute; no rinde y c&oacute;mo lo usamos en el juego <span class="tag">algo</span></h3>
-            <p>por hashrate_ghost &middot; hace 2d &middot; 33 respuestas</p>
-          </div>
-          <div class="meta"><b>+97</b> GGCPU</div>
-        </div>
-        <div class="thread" data-tags="autolykos2 erg cpu">
-          <div class="avatar">AL</div>
-          <div class="info">
-            <h3>Autolykos2 en Ergo: benchmarks reales con 12 CPUs <span class="tag hot">hot</span></h3>
-            <p>por bench_master &middot; hace 2d &middot; 76 respuestas</p>
-          </div>
-          <div class="meta"><b>+245</b> GGCPU</div>
-        </div>
         <div class="thread" data-tags="retiro faucet minimo pago">
           <div class="avatar">RT</div>
           <div class="info">
-            <h3>Retiros m&iacute;nimos: cu&aacute;nto es justo para motivar sin quebrar? <span class="tag">econom&iacute;a</span></h3>
-            <p>por tokenomics_dev &middot; hace 3d &middot; 61 respuestas</p>
+            <h3>Retiros mínimos: cuánto es justo para motivar sin quebrar? <span class="tag">economía</span></h3>
+            <p>por tokenomics_dev &middot; hace 2d &middot; 61 respuestas</p>
           </div>
           <div class="meta"><b>+180</b> GGCPU</div>
         </div>
       </div>
     </section>
 
-    <!-- BLOG ALGORITMOS -->
-    <section class="section" id="blog">
+    <!-- MONEDAS AGRUPADAS POR ALGORITMO -->
+    <section class="section" id="monedas">
       <div class="section-head">
-        <h2>Blog CPU &middot; Algoritmos</h2>
-        <span class="sub">datos reales &middot; fuentes oficiales</span>
+        <h2>Monedas CPU-minables</h2>
+        <span class="sub">agrupadas por algoritmo · click para guía completa</span>
+      </div>
+
+      <!-- AstroBWT (TU PROYECTO PRINCIPAL) -->
+      <div class="algo-group">
+        <h3 class="algo-title">AstroBWT <span class="badge-main">tu proyecto</span> <span class="algo-note">derohe · minería CPU/Android</span></h3>
+        <div class="coin-grid">
+          <a href="blog/dero.html" class="coin-card featured">
+            <div class="coin-header">
+              <span class="coin-ticker">DERO</span>
+              <span class="coin-name">Dero</span>
+            </div>
+            <div class="coin-price"><span class="price-value" data-cg="dero">N/D</span><span class="delta">ver mercado</span></div>
+            <div class="coin-note">AstroBWT · privacy chain · minería CPU y Termux</div>
+            <span class="coin-cta">Ver guía completa →</span>
+          </a>
+        </div>
       </div>
 
       <!-- RandomX -->
-      <details class="algo" open>
-        <summary>
-          <span>RandomX <span class="badge">XMR</span></span>
-          <span class="hash">1.2 &ndash; 6.8 kh/s &middot; CPU</span>
-          <span class="arrow">&#9656;</span>
-        </summary>
-        <div class="algo-body">
-          <p>Algoritmo de Monero dise&ntilde;ado para resistir ASIC y favorecer CPU. Usa memoria RAM (2MB por hilo) y ejecuta c&oacute;digo aleatorio. Es el rey de la miner&iacute;a CPU en 2026.</p>
-          <table>
-            <tr><th>CPU</th><th>Hashrate</th><th>Consumo</th><th>XMR/d&iacute;a*</th></tr>
-            <tr><td>Ryzen 5 3600</td><td>4.2 kh/s</td><td>65W</td><td><b>~0.0009</b></td></tr>
-            <tr><td>Ryzen 7 5800X</td><td>6.8 kh/s</td><td>95W</td><td><b>~0.0014</b></td></tr>
-            <tr><td>Intel i5-10400</td><td>3.1 kh/s</td><td>55W</td><td><b>~0.0006</b></td></tr>
-            <tr><td>Xeon E5-2670</td><td>5.5 kh/s</td><td>115W</td><td><b>~0.0011</b></td></tr>
-          </table>
-          <p class="warn">*Rentabilidad bruta a precio XMR $180 y dificultad actual. Resta electricidad (ej. 65W &times; 24h &times; $0.15/kWh = $0.23/d&iacute;a). En muchos casos el margen es negativo: por eso GGCPU paga en token interno, no en XMR real.</p>
-          <div class="links">
-            <a href="https://www.getmonero.org/resources/moneropedia/randomx.html" target="_blank" rel="noopener">docs oficiales</a>
-            <a href="https://xmrig.com/benchmark" target="_blank" rel="noopener">benchmarks XMRig</a>
-            <a href="https://miningpoolstats.stream/monero" target="_blank" rel="noopener">pools</a>
-          </div>
+      <div class="algo-group">
+        <h3 class="algo-title">RandomX <span class="algo-note">CPU-first · resistente a ASIC</span></h3>
+        <div class="coin-grid">
+          <a href="blog/xmr.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">XMR</span><span class="coin-name">Monero</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="monero">$605.87</span><span class="delta">#13</span></div>
+            <div class="coin-note">Mayor liquidez de la categoría</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/qrl.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">QRL</span><span class="coin-name">Quantum Resistant Ledger</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="quantum-resistant-ledger">$1.19</span><span class="delta">#288</span></div>
+            <div class="coin-note">PoW poscuántico</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/zeph.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">ZEPH</span><span class="coin-name">Zephyr Protocol</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="zephyr-protocol">$0.1923</span><span class="delta">#2264</span></div>
+            <div class="coin-note">Privacidad + activos estables</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/wow.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">WOW</span><span class="coin-name">Wownero</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="wownero">N/D</span><span class="delta">—</span></div>
+            <div class="coin-note">Privacy fork de Monero</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/epic.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">EPIC</span><span class="coin-name">Epic Cash</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="epic-cash">N/D</span><span class="delta">—</span></div>
+            <div class="coin-note">MimbleWimble + RandomX</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/xtm.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">XTM</span><span class="coin-name">Tari</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="tari">N/D</span><span class="delta">—</span></div>
+            <div class="coin-note">Merge mining con XMR</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/sal.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">SAL</span><span class="coin-name">Salvium</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="salvium">~$0.0010</span><span class="delta">—</span></div>
+            <div class="coin-note">Privacy joven · liquidez baja</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/wart.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">WART</span><span class="coin-name">Warthog</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="warthog">N/D</span><span class="delta">—</span></div>
+            <div class="coin-note">Verificar algoritmo vigente</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
         </div>
-      </details>
+      </div>
 
-      <!-- Yespower -->
-      <details class="algo">
-        <summary>
-          <span>Yespower <span class="badge">BTC</span></span>
-          <span class="hash">0.8 &ndash; 2.5 kh/s &middot; CPU</span>
-          <span class="arrow">&#9656;</span>
-        </summary>
-        <div class="algo-body">
-          <p>Algoritmo usado por cadenas peque&ntilde;as derivadas de Bitcoin. Dise&ntilde;ado para CPU, resistente a ASIC. Popular en faucets y proyectos como GGCPU por su bajo consumo.</p>
-          <table>
-            <tr><th>CPU</th><th>Hashrate</th><th>Consumo</th><th>Valor/d&iacute;a*</th></tr>
-            <tr><td>Ryzen 5 3600</td><td>2.1 kh/s</td><td>50W</td><td><b>~$0.04</b></td></tr>
-            <tr><td>Intel i3-9100</td><td>1.1 kh/s</td><td>35W</td><td><b>~$0.02</b></td></tr>
-          </table>
-          <p class="warn">&#9888; Yespower tiene muchas variantes (r16, r32, yescrypt). Verifica siempre el par&aacute;metro exacto en la pool antes de configurar el minero.</p>
-          <div class="links">
-            <a href="https://github.com/jgarzik/yespower" target="_blank" rel="noopener">repo oficial</a>
-            <a href="https://miningpoolstats.stream/" target="_blank" rel="noopener">pool stats</a>
-          </div>
+      <!-- CryptoNight-Adaptive v6 -->
+      <div class="algo-group">
+        <h3 class="algo-title">CryptoNight-Adaptive v6 <span class="algo-note">hard fork v13 · jul 2026</span></h3>
+        <div class="coin-grid">
+          <a href="blog/xnv.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">XNV</span><span class="coin-name">Nerva</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="nerva">$0.1025</span><span class="delta">#2406</span></div>
+            <div class="coin-note">Solo minería · requiere nodo local</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
         </div>
-      </details>
+      </div>
 
-      <!-- KawPow -->
-      <details class="algo">
-        <summary>
-          <span>KawPow <span class="badge">RVN</span></span>
-          <span class="hash">~0.4 MH/s CPU &middot; GPU-first</span>
-          <span class="arrow">&#9656;</span>
-        </summary>
-        <div class="algo-body">
-          <p>Algoritmo de Ravencoin. Aunque est&aacute; pensado para GPU, funciona en CPU con hashrate muy bajo. En GGCPU se usa como &quot;algoritmo de juego&quot; con recompensas internas, no para minar RVN real.</p>
-          <table>
-            <tr><th>Hardware</th><th>Hashrate</th><th>Consumo</th><th>Nota</th></tr>
-            <tr><td>Ryzen 5 3600</td><td>~0.4 MH/s</td><td>80W</td><td><span class="neg">no rentable real</span></td></tr>
-            <tr><td>RTX 3060</td><td>~12 MH/s</td><td>110W</td><td>GPU &middot; no CPU</td></tr>
-          </table>
-          <p class="warn">&#9888; Si el objetivo es CPU pura, KawPow no es competitivo. Se incluye aqu&iacute; solo por transparencia y para el modo &quot;algoritmo de juego&quot;.</p>
-          <div class="links">
-            <a href="https://www.ravencoin.org/" target="_blank" rel="noopener">ravencoin.org</a>
-            <a href="https://miningpoolstats.stream/ravencoin" target="_blank" rel="noopener">pools RVN</a>
-          </div>
+      <!-- XelisHash -->
+      <div class="algo-group">
+        <h3 class="algo-title">XelisHash <span class="algo-note">propio de Xelis · no comparable con RandomX</span></h3>
+        <div class="coin-grid">
+          <a href="blog/xel.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">XEL</span><span class="coin-name">Xelis</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="xelis">$0.3001</span><span class="delta">#2466</span></div>
+            <div class="coin-note">Hashrate medido en unidad propia</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
         </div>
-      </details>
+      </div>
 
-      <!-- Autolykos2 -->
-      <details class="algo">
-        <summary>
-          <span>Autolykos2 <span class="badge">ERG</span></span>
-          <span class="hash">15 &ndash; 90 kh/s &middot; CPU/GPU</span>
-          <span class="arrow">&#9656;</span>
-        </summary>
-        <div class="algo-body">
-          <p>Algoritmo de Ergo, memory-hard, resistente a ASIC. En CPU funciona decentemente para equipos con buena RAM. Es una de las alternativas m&aacute;s honestas para miner&iacute;a CPU/GPU mixta.</p>
-          <table>
-            <tr><th>CPU</th><th>Hashrate</th><th>Consumo</th><th>ERG/d&iacute;a*</th></tr>
-            <tr><td>Ryzen 5 3600</td><td>~55 kh/s</td><td>70W</td><td><b>~0.004</b></td></tr>
-            <tr><td>Ryzen 9 5900X</td><td>~95 kh/s</td><td>120W</td><td><b>~0.007</b></td></tr>
-          </table>
-          <p class="warn">*Valores brutos a dificultad y precio ERG actuales. Verifica con tu propio benchmark: los datos var&iacute;an por RAM y ajustes.</p>
-          <div class="links">
-            <a href="https://ergoplatform.org/" target="_blank" rel="noopener">ergoplatform.org</a>
-            <a href="https://miningpoolstats.stream/ergo" target="_blank" rel="noopener">pools ERG</a>
-            <a href="https://github.com/ergoplatform/ergo" target="_blank" rel="noopener">github</a>
-          </div>
+      <!-- GhostRider -->
+      <div class="algo-group">
+        <h3 class="algo-title">GhostRider <span class="algo-note">anti-ASIC · CPU-minable</span></h3>
+        <div class="coin-grid">
+          <a href="blog/rtm.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">RTM</span><span class="coin-name">Raptoreum</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="raptoreum">$0.000055</span><span class="delta">#4208</span></div>
+            <div class="coin-note">Liquidez muy baja · verificar NonKYC</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
         </div>
-      </details>
+      </div>
 
-      <!-- Scrypt -->
-      <details class="algo">
-        <summary>
-          <span>Scrypt <span class="badge">LTC</span></span>
-          <span class="hash">30 &ndash; 200 kh/s &middot; CPU d&eacute;bil</span>
-          <span class="arrow">&#9656;</span>
-        </summary>
-        <div class="algo-body">
-          <p>Algoritmo cl&aacute;sico de Litecoin y Dogecoin. Hoy dominado por ASIC; en CPU el hashrate es simb&oacute;lico. Se incluye por valor educativo y porque algunas cadenas peque&ntilde;as lo siguen usando.</p>
-          <table>
-            <tr><th>CPU</th><th>Hashrate</th><th>Consumo</th><th>Nota</th></tr>
-            <tr><td>Ryzen 5 3600</td><td>~80 kh/s</td><td>60W</td><td><span class="neg">no rentable</span></td></tr>
-          </table>
-          <p class="warn">&#9888; Para CPU pura, Scrypt est&aacute; muerto. Solo tiene sentido como ejercicio t&eacute;cnico o en cadenas nuevas con dificultad baja.</p>
-          <div class="links">
-            <a href="https://litecoin.org/" target="_blank" rel="noopener">litecoin.org</a>
-            <a href="https://miningpoolstats.stream/litecoin" target="_blank" rel="noopener">pools LTC</a>
-          </div>
+      <!-- VerusHash -->
+      <div class="algo-group">
+        <h3 class="algo-title">VerusHash <span class="algo-note">multi-consenso</span></h3>
+        <div class="coin-grid">
+          <a href="blog/vrsc.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">VRSC</span><span class="coin-name">Verus</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="verus-coin">$0.2094</span><span class="delta">#939</span></div>
+            <div class="coin-note">Ingreso CPU débil · verificar puentes</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
         </div>
-      </details>
+      </div>
 
-      <!-- Yescrypt -->
-      <details class="algo">
-        <summary>
-          <span>Yescrypt <span class="badge">CPU</span></span>
-          <span class="hash">1 &ndash; 8 kh/s &middot; CPU</span>
-          <span class="arrow">&#9656;</span>
-        </summary>
-        <div class="algo-body">
-          <p>Evoluci&oacute;n de scrypt, dise&ntilde;ado para CPU y resistente a ASIC. Usado por varias cadenas peque&ntilde;as. Buen equilibrio entre consumo y hashrate en equipos modestos.</p>
-          <table>
-            <tr><th>CPU</th><th>Hashrate</th><th>Consumo</th><th>Nota</th></tr>
-            <tr><td>Ryzen 5 3600</td><td>~5 kh/s</td><td>55W</td><td>rentable solo en cadenas nuevas</td></tr>
-            <tr><td>Intel i5-10400</td><td>~3 kh/s</td><td>45W</td><td>buen margen energ&eacute;tico</td></tr>
-          </table>
-          <div class="links">
-            <a href="https://github.com/openwall/yescrypt" target="_blank" rel="noopener">repo yescrypt</a>
-            <a href="https://miningpoolstats.stream/" target="_blank" rel="noopener">pool stats</a>
-          </div>
+      <!-- YesPower -->
+      <div class="algo-group">
+        <h3 class="algo-title">YesPower <span class="algo-note">variantes r16/r32 · verificar parámetro</span></h3>
+        <div class="coin-grid">
+          <a href="blog/smt.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">SMT</span><span class="coin-name">Smartiecoin</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="smartiecoin">N/D</span><span class="delta">—</span></div>
+            <div class="coin-note">Rendimiento estimado débil</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
         </div>
-      </details>
+      </div>
     </section>
 
     <!-- SUBMONEDAS -->
     <section class="section" id="submonedas">
       <div class="section-head">
         <h2>Submonedas internas</h2>
-        <span class="sub">puntos off-chain &middot; canjeables por $GGCPU</span>
+        <span class="sub">puntos off-chain · canjeables por $GGCPU</span>
       </div>
       <div class="card">
         <p style="font-size:.75rem;color:var(--text-dim);margin-bottom:8px">
-          Las submonedas <b>no son tokens on-chain</b>. Son puntos en la base de datos interna que se canjean por $GGCPU al retirar. As&iacute; controlas inflaci&oacute;n y evitas 50 contratos.
+          Las submonedas <b>no son tokens on-chain</b>. Son puntos en la base de datos interna que se canjean por $GGCPU al retirar.
         </p>
         <table class="sub-table">
-          <tr><th>Submoneda</th><th>Algoritmo</th><th>Emisi&oacute;n</th><th>Canje</th></tr>
+          <tr><th>Submoneda</th><th>Algoritmo</th><th>Emisión</th><th>Canje</th></tr>
+          <tr><td><b>$DERO-CPU</b></td><td>AstroBWT</td><td>1,200/h</td><td>1200 = 1 GGCPU</td></tr>
+          <tr><td><b>$XMR-CPU</b></td><td>RandomX</td><td>500/h</td><td>500 = 1 GGCPU</td></tr>
           <tr><td><b>$PEPE-CPU</b></td><td>RandomX</td><td>1,000/h</td><td>1000 = 1 GGCPU</td></tr>
           <tr><td><b>$DOGE-CPU</b></td><td>Scrypt</td><td>5,000/h</td><td>5000 = 1 GGCPU</td></tr>
-          <tr><td><b>$XMR-CPU</b></td><td>RandomX</td><td>500/h</td><td>500 = 1 GGCPU</td></tr>
-          <tr><td><b>$BTC-CPU</b></td><td>Yespower</td><td>2,000/h</td><td>2000 = 1 GGCPU</td></tr>
           <tr><td><b>$SOL-CPU</b></td><td>Yescrypt</td><td>3,000/h</td><td>3000 = 1 GGCPU</td></tr>
         </table>
-        <p class="warn">&#9888; Las tasas de emisi&oacute;n se ajustan por dificultad y quema. No prometas rentabilidad fija: la econom&iacute;a del token tiene que respirar.</p>
+        <p class="warn">⚠ Las tasas de emisión se ajustan por dificultad y quema. No prometas rentabilidad fija.</p>
       </div>
     </section>
 
@@ -590,38 +335,38 @@
     <section class="section" id="roadmap">
       <div class="section-head">
         <h2>Roadmap</h2>
-        <span class="sub">de MVP a econom&iacute;a completa</span>
+        <span class="sub">de MVP a economía completa</span>
       </div>
       <div class="roadmap">
         <div class="phase done">
           <span class="status">DONE</span>
-          <h5>Fase 0 &middot; Landing + foro</h5>
-          <p>P&aacute;gina est&aacute;tica, foro b&aacute;sico, blog de algoritmos, identidad cyberpunk.</p>
+          <h5>Fase 0 · Landing + foro</h5>
+          <p>Página estática, foro básico, identidad cyberpunk.</p>
         </div>
         <div class="phase done">
           <span class="status">DONE</span>
-          <h5>Fase 1 &middot; Token ERC-20 en Base</h5>
+          <h5>Fase 1 · Token ERC-20 en Base</h5>
           <p>Contrato con rol minter, supply cap 100M, pool de liquidez inicial en Uniswap.</p>
         </div>
         <div class="phase active">
           <span class="status">ACTIVE</span>
-          <h5>Fase 2 &middot; Agente CPU + dashboard</h5>
-          <p>Worker en Node/Go que mide trabajo, backend que valida y mintea, dashboard de usuario con retiro m&iacute;nimo.</p>
+          <h5>Fase 2 · Guías por algoritmo + login Google</h5>
+          <p>Blog por moneda, precios en vivo, perfil de usuario real con Google Identity.</p>
         </div>
         <div class="phase">
           <span class="status">NEXT</span>
-          <h5>Fase 3 &middot; Submonedas y quema</h5>
-          <p>Puntos internos canjeables, burn autom&aacute;tico al comprar mejoras y NFT de utilidad.</p>
+          <h5>Fase 3 · Agente CPU + dashboard</h5>
+          <p>Worker en Node/Go que mide trabajo, backend que valida y mintea, dashboard de usuario con retiro mínimo.</p>
         </div>
         <div class="phase">
           <span class="status">NEXT</span>
-          <h5>Fase 4 &middot; Nodos en comercios</h5>
-          <p>Cibercaf&eacute;s y tiendas como nodos locales con % de recompensas. Antifraude y KYC ligero.</p>
+          <h5>Fase 4 · Submonedas y quema</h5>
+          <p>Puntos internos canjeables, burn automático al comprar mejoras y NFT de utilidad.</p>
         </div>
         <div class="phase">
           <span class="status">LATER</span>
-          <h5>Fase 5 &middot; Marketplace de c&oacute;mputo</h5>
-          <p>Clientes externos pagan por tareas computacionales reales. Ah&iacute; el proyecto deja de ser juego y se vuelve negocio.</p>
+          <h5>Fase 5 · Marketplace de cómputo</h5>
+          <p>Clientes externos pagan por tareas computacionales reales.</p>
         </div>
       </div>
     </section>
@@ -631,7 +376,7 @@
 
 <!-- WARN GLOBAL -->
 <div class="warn-global">
-  &#9888; GGCPU es un proyecto personal en desarrollo. Nada de lo aqu&iacute; mostrado es asesor&iacute;a financiera. Los precios, hashrates y rentabilidades son referenciales y cambian con el mercado.
+  ⚠ GGCPU es un proyecto personal en desarrollo. Nada de lo aquí mostrado es asesoría financiera. Los precios y rentabilidades son referenciales.
 </div>
 
 <!-- FOOTER -->
@@ -642,20 +387,12 @@
 | |_| | |_| || |___|  __/| |_| |  __/
  \____|\____| \____|_|    \___/|_|
 </div>
-  <p>GGCPU &middot; CPU Mining Lab &middot; foro, blog y econom&iacute;a interna.</p>
-  <p style="margin-top:8px">
-    <a href="#foro">Foro</a> &middot;
-    <a href="#blog">Blog</a> &middot;
-    <a href="#token">Token</a> &middot;
-    <a href="#submonedas">Submonedas</a> &middot;
-    <a href="#roadmap">Roadmap</a>
-  </p>
+  <p>GGCPU &middot; CPU Mining Lab &middot; guías, foro y economía interna.</p>
 </footer>
 
-<!-- JS -->
 <script>
 (function(){
-  // Buscador del foro
+  /* ===== BUSCADOR FORO ===== */
   var search = document.getElementById('forumSearch');
   var threads = document.querySelectorAll('.thread');
   if (search) {
@@ -664,16 +401,12 @@
       threads.forEach(function(t){
         var text = t.textContent.toLowerCase();
         var tags = (t.dataset.tags || '').toLowerCase();
-        if (q === '' || text.indexOf(q) !== -1 || tags.indexOf(q) !== -1) {
-          t.style.display = '';
-        } else {
-          t.style.display = 'none';
-        }
+        t.style.display = (q === '' || text.indexOf(q) !== -1 || tags.indexOf(q) !== -1) ? '' : 'none';
       });
     });
   }
 
-  // Nav activo seg&uacute;n scroll
+  /* ===== NAV ACTIVO SEGÚN SCROLL ===== */
   var navLinks = document.querySelectorAll('.nav a');
   var sections = [];
   navLinks.forEach(function(a){
@@ -684,24 +417,73 @@
   function onScroll(){
     var y = window.scrollY + 120;
     var current = sections[0];
-    sections.forEach(function(s){
-      if (s.el.offsetTop <= y) current = s;
-    });
+    sections.forEach(function(s){ if (s.el.offsetTop <= y) current = s; });
     navLinks.forEach(function(a){ a.classList.remove('active'); });
     if (current) current.link.classList.add('active');
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Solo un acorde&oacute;n abierto a la vez (opcional, comenta si no lo quieres)
-  var algos = document.querySelectorAll('details.algo');
-  algos.forEach(function(d){
-    d.addEventListener('toggle', function(){
-      if (d.open) {
-        algos.forEach(function(o){ if (o !== d) o.open = false; });
-      }
+  /* ===== LOGIN GOOGLE (demo con localStorage) =====
+     Cuando tengas client_id real, reemplaza el handler por:
+       google.accounts.id.initialize({client_id:'TU_CLIENT_ID',callback:onGoogle});
+       google.accounts.id.prompt();
+  ============================================== */
+  function showProfile(profile) {
+    document.querySelectorAll('.btn-login').forEach(b => b.hidden = true);
+    document.querySelectorAll('.user-profile').forEach(p => {
+      p.hidden = false;
+      p.querySelector('img').src = profile.picture;
+      p.querySelector('.user-name').textContent = profile.name;
+    });
+  }
+  function hideProfile() {
+    document.querySelectorAll('.btn-login').forEach(b => b.hidden = false);
+    document.querySelectorAll('.user-profile').forEach(p => p.hidden = true);
+  }
+  function demoLogin() {
+    var profile = {
+      name: 'Miner Demo',
+      picture: 'https://ui-avatars.com/api/?name=Miner+Demo&background=00ff9c&color=000&bold=true'
+    };
+    localStorage.setItem('ggcpu_user', JSON.stringify(profile));
+    showProfile(profile);
+  }
+  document.querySelectorAll('.btn-login').forEach(function(b){
+    b.addEventListener('click', demoLogin);
+  });
+  document.querySelectorAll('.user-profile .btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      localStorage.removeItem('ggcpu_user');
+      hideProfile();
     });
   });
+  var saved = localStorage.getItem('ggcpu_user');
+  if (saved) { try { showProfile(JSON.parse(saved)); } catch(e){} }
+
+  /* ===== PRECIOS EN VIVO (CoinGecko, fallback estático) ===== */
+  async function refreshPrices() {
+    var els = document.querySelectorAll('[data-cg]');
+    if (!els.length) return;
+    var ids = [...new Set([...els].map(e => e.dataset.cg))].join(',');
+    try {
+      var r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + ids + '&vs_currencies=usd');
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var data = await r.json();
+      els.forEach(function(el){
+        var id = el.dataset.cg;
+        if (data[id] && data[id].usd != null) {
+          var p = data[id].usd;
+          el.textContent = p < 0.01 ? '$' + p.toFixed(6) : '$' + p.toFixed(4);
+          el.classList.add('live');
+        }
+      });
+    } catch(e) {
+      console.warn('Precios en vivo no disponibles, usando valores estáticos.', e);
+    }
+  }
+  refreshPrices();
+  setInterval(refreshPrices, 60000);
 })();
 </script>
 
