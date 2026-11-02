@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="GGCPU · Foro, blog y laboratorio de minería CPU. Guías reales de DERO, Monero y más algoritmos.">
+<title>GGCPU · CPU Mining Lab & Forum</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    <span>GGCPU</span><small>// cpu mining lab</small>
+  </div>
+  <nav class="nav">
+    <a href="#comunidad" class="active">Comunidad</a>
+    <a href="#foro">Foro</a>
+    <a href="#monedas">Monedas</a>
+    <a href="#token">Token</a>
+    <a href="#submonedas">Submonedas</a>
+    <a href="#roadmap">Roadmap</a>
+  </nav>
+  <div class="user-area">
+    <button class="btn-login" id="btnLogin">
+      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      <span>Entrar con Google</span>
+    </button>
+    <div class="user-profile" id="userProfile" hidden>
+      <img id="userAvatar" class="user-avatar" alt="avatar">
+      <span id="userName" class="user-name"></span>
+      <button id="btnLogout" class="btn ghost" data-logout style="padding:5px 10px;font-size:.65rem">Salir</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>Minar con CPU.<br><span class="glitch">GGCPU</span> es el laboratorio.</h1>
+    <p>Foro, blog técnico y guías reales por algoritmo. Proyecto principal: <b>DERO con AstroBWT en CPU</b> (incluye Termux). Sin blockchain propia: token ERC-20 en Base y trabajo verificado.</p>
+    <div class="cta">
+      <button class="btn">Conectar wallet</button>
+      <button class="btn ghost">Ver guía DERO →</button>
+    </div>
+  </div>
+  <div class="terminal">
+    <div class="terminal-bar">
+      <i class="r"></i><i class="y"></i><i class="g"></i>
+      <span style="margin-left:8px">ggcpu@node:~$</span>
+    </div>
+    <div class="terminal-body">
+      <div class="c"># inicializando agente GGCPU...</div>
+      <div><span class="k">$</span> ggcpu --detect --bench</div>
+      <div>cpu: <span class="w">8 cores</span> &middot; ram: <span class="w">16GB</span> &middot; algo: <span class="k">astrobwt</span></div>
+      <div>bench: <span class="w">1.2 kh/s</span> &middot; power: <span class="w">65W</span></div>
+      <div><span class="k">$</span> ggcpu --connect node.ggcpu.io</div>
+      <div>handshake ok &middot; session <span class="w">#A7F3</span></div>
+      <div>minting <span class="k">GGCPU</span> &middot; proyecto: <span class="w">DERO-CPU</span></div>
+      <div class="cursor"></div>
+    </div>
+  </div>
+</section>
+
+<div class="layout">
+
+  <!-- ══════════ SIDEBAR IZQUIERDA · MONEDAS POR ALGORITMO (lista) ══════════ -->
+  <aside id="coin-sidebar">
+    <h4>☰ Monedas · por algoritmo</h4>
+
+    <h5 class="algo-side"><span class="star">★</span> AstroBWT <span class="badge-main">tu proyecto</span></h5>
+    <ul>
+      <li><a class="featured" href="blog/dero.html"><span class="side-ticker">DERO</span><span class="side-price" data-cg="dero">$0.0084</span></a></li>
+    </ul>
+
+    <h5 class="algo-side">RandomX</h5>
+    <ul>
+      <li><a href="blog/xmr.html"><span class="side-ticker">XMR</span><span class="side-price" data-cg="monero">$605.62</span></a></li>
+      <li><a href="blog/qrl.html"><span class="side-ticker">QRL</span><span class="side-price" data-cg="quantum-resistant-ledger">$1.19</span></a></li>
+      <li><a href="blog/zeph.html"><span class="side-ticker">ZEPH</span><span class="side-price" data-cg="zephyr-protocol">$0.1559</span></a></li>
+      <li><a href="blog/wow.html"><span class="side-ticker">WOW</span><span class="side-price" data-cg="wownero">$0.0372</span></a></li>
+      <li><a href="blog/epic.html"><span class="side-ticker">EPIC</span><span class="side-price" data-cg="epic-cash">$0.7932</span></a></li>
+      <li><a href="blog/xtm.html"><span class="side-ticker">XTM</span><span class="side-price" data-cg="minotari">$0.0013</span></a></li>
+      <li><a href="blog/sal.html"><span class="side-ticker">SAL</span><span class="side-price" data-cg="salvium">$0.0011</span></a></li>
+      <li><a href="blog/wart.html"><span class="side-ticker">WART</span><span class="side-price" data-cg="warthog">$0.0267</span></a></li>
+    </ul>
+
+    <h5 class="algo-side">CryptoNight-Adaptive v6</h5>
+    <ul>
+      <li><a href="blog/xnv.html"><span class="side-ticker">XNV</span><span class="side-price" data-cg="nerva">$0.1024</span></a></li>
+    </ul>
+
+    <h5 class="algo-side">XelisHash</h5>
+    <ul>
+      <li><a href="blog/xel.html"><span class="side-ticker">XEL</span><span class="side-price" data-cg="xelis">$0.2903</span></a></li>
+    </ul>
+
+    <h5 class="algo-side">GhostRider</h5>
+    <ul>
+      <li><a href="blog/rtm.html"><span class="side-ticker">RTM</span><span class="side-price" data-cg="raptoreum">$0.000054</span></a></li>
+    </ul>
+
+    <h5 class="algo-side">VerusHash</h5>
+    <ul>
+      <li><a href="blog/vrsc.html"><span class="side-ticker">VRSC</span><span class="side-price" data-cg="verus-coin">$0.1702</span></a></li>
+    </ul>
+
+    <h5 class="algo-side">YesPower</h5>
+    <ul>
+      <li><a href="blog/smt.html"><span class="side-ticker">SMT</span><span class="side-price">N/D</span></a></li>
+    </ul>
+
+    <p class="side-note">⇅ precios live · CoinGecko · auto cada 60s</p>
+  </aside>
+
+  <main>
+
+    <!-- COMUNIDAD (ex-Network) -->
+    <section class="section" id="comunidad">
+      <div class="section-head">
+        <h2>Comunidad</h2>
+        <span class="sub">usuarios reales · login con Google</span>
+      </div>
+      <div class="community-bar">
+        <div class="community-login">
+          <p class="community-hint">
+            <b>Un solo acceso:</b> usa el botón <b>Entrar con Google</b> de la barra superior.
+            Tu perfil aparecerá en el foro, en el ranking de mineros y en tus guías publicadas.
+          </p>
+        </div>
+        <div class="community-stats">
+          <div><span>Nodos activos</span><b>1,247</b></div>
+          <div><span>Hashrate total</span><b>3.2 MH/s</b></div>
+          <div><span>Usuarios</span><b>8,912</b></div>
+          <div><span>GGCPU precio</span><b class="up">$0.0412 ▲</b></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKEN -->
+    <section class="section" id="token">
+      <div class="section-head">
+        <h2>Token GGCPU</h2>
+        <span class="sub">ERC-20 en Base &middot; minteo por trabajo CPU verificado</span>
+      </div>
+      <div class="token-card">
+        <div class="row">
+          <h3>$GGCPU / USDC</h3>
+          <div class="price">$0.0412 <small>USDC</small></div>
+        </div>
+        <div class="delta">▲ +7.4% (24h) &middot; liquidez en Uniswap Base</div>
+        <div class="stats">
+          <div><span>Supply</span><b>42.0M</b></div>
+          <div><span>Burn</span><b>12.4K / 24h</b></div>
+          <div><span>Mint cap</span><b>100M</b></div>
+          <div><span>Holders</span><b>3,102</b></div>
+        </div>
+      </div>
+      <div class="warn">
+        ⚠ El token se mintea solo cuando el backend valida trabajo CPU. No hay minería on-chain real desde el navegador.
+      </div>
+    </section>
+
+    <!-- FORO -->
+    <section class="section" id="foro">
+      <div class="section-head">
+        <h2>Foro</h2>
+        <span class="sub">hilos recientes &middot; comunidad</span>
+      </div>
+      <div class="forum-toolbar">
+        <input type="text" id="forumSearch" placeholder="buscar hilo, algoritmo, moneda...">
+        <button class="btn ghost" style="padding:9px 14px">+ Nuevo hilo</button>
+      </div>
+      <div id="threads">
+        <div class="thread" data-tags="dero astrobwt termux tutorial">
+          <div class="avatar">DR</div>
+          <div class="info">
+            <h3>DERO en Termux: guía completa para minar con AstroBWT <span class="tag hot">hot</span></h3>
+            <p>por admin &middot; hace 1h &middot; 64 respuestas</p>
+          </div>
+          <div class="meta"><b>+412</b> GGCPU</div>
+        </div>
+        <div class="thread" data-tags="randomx xmr cpu ryzen">
+          <div class="avatar">RX</div>
+          <div class="info">
+            <h3>RandomX en Ryzen 5 3600: 4.2 kh/s con 65W <span class="tag">algo</span></h3>
+            <p>por cripto_miner_77 &middot; hace 2h &middot; 42 respuestas</p>
+          </div>
+          <div class="meta"><b>+128</b> GGCPU</div>
+        </div>
+        <div class="thread" data-tags="astrobwt dero hardware celular">
+          <div class="avatar">AB</div>
+          <div class="info">
+            <h3>AstroBWT vs RandomX: cuál rinde mejor en móvil <span class="tag">debate</span></h3>
+            <p>por node_farmer &middot; hace 1d &middot; 55 respuestas</p>
+          </div>
+          <div class="meta"><b>+201</b> GGCPU</div>
+        </div>
+        <div class="thread" data-tags="retiro faucet minimo pago">
+          <div class="avatar">RT</div>
+          <div class="info">
+            <h3>Retiros mínimos: cuánto es justo para motivar sin quebrar? <span class="tag">economía</span></h3>
+            <p>por tokenomics_dev &middot; hace 2d &middot; 61 respuestas</p>
+          </div>
+          <div class="meta"><b>+180</b> GGCPU</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MONEDAS AGRUPADAS POR ALGORITMO -->
+    <section class="section" id="monedas">
+      <div class="section-head">
+        <h2>Monedas CPU-minables</h2>
+        <span class="sub">agrupadas por algoritmo · click para guía completa</span>
+      </div>
+
+      <!-- AstroBWT (TU PROYECTO PRINCIPAL) -->
+      <div class="algo-group">
+        <h3 class="algo-title">AstroBWT <span class="badge-main">tu proyecto</span> <span class="algo-note">derohe · minería CPU/Android</span></h3>
+        <div class="coin-grid">
+          <a href="blog/dero.html" class="coin-card featured">
+            <div class="coin-header">
+              <span class="coin-ticker">DERO</span>
+              <span class="coin-name">Dero</span>
+            </div>
+            <div class="coin-price"><span class="price-value" data-cg="dero">$0.0084</span><span class="delta">—</span></div>
+            <div class="coin-note">AstroBWT · privacy chain · minería CPU y Termux</div>
+            <span class="coin-cta">Ver guía completa →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- RandomX -->
+      <div class="algo-group">
+        <h3 class="algo-title">RandomX <span class="algo-note">CPU-first · resistente a ASIC</span></h3>
+        <div class="coin-grid">
+          <a href="blog/xmr.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">XMR</span><span class="coin-name">Monero</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="monero">$605.62</span><span class="delta">#13</span></div>
+            <div class="coin-note">Mayor liquidez de la categoría</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/qrl.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">QRL</span><span class="coin-name">Quantum Resistant Ledger</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="quantum-resistant-ledger">$1.19</span><span class="delta">#288</span></div>
+            <div class="coin-note">PoW poscuántico</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/zeph.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">ZEPH</span><span class="coin-name">Zephyr Protocol</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="zephyr-protocol">$0.1559</span><span class="delta">#2264</span></div>
+            <div class="coin-note">Privacidad + activos estables</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/wow.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">WOW</span><span class="coin-name">Wownero</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="wownero">$0.0372</span><span class="delta">—</span></div>
+            <div class="coin-note">Privacy fork de Monero</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/epic.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">EPIC</span><span class="coin-name">Epic Cash</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="epic-cash">$0.7932</span><span class="delta">—</span></div>
+            <div class="coin-note">MimbleWimble + RandomX</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/xtm.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">XTM</span><span class="coin-name">Tari</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="minotari">$0.0013</span><span class="delta">—</span></div>
+            <div class="coin-note">Merge mining con XMR</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/sal.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">SAL</span><span class="coin-name">Salvium</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="salvium">$0.0011</span><span class="delta">—</span></div>
+            <div class="coin-note">Privacy joven · liquidez baja</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+          <a href="blog/wart.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">WART</span><span class="coin-name">Warthog</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="warthog">$0.0267</span><span class="delta">—</span></div>
+            <div class="coin-note">Verificar algoritmo vigente</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- CryptoNight-Adaptive v6 -->
+      <div class="algo-group">
+        <h3 class="algo-title">CryptoNight-Adaptive v6 <span class="algo-note">hard fork v13 · jul 2026</span></h3>
+        <div class="coin-grid">
+          <a href="blog/xnv.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">XNV</span><span class="coin-name">Nerva</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="nerva">$0.1024</span><span class="delta">#2406</span></div>
+            <div class="coin-note">Solo minería · requiere nodo local</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- XelisHash -->
+      <div class="algo-group">
+        <h3 class="algo-title">XelisHash <span class="algo-note">propio de Xelis · no comparable con RandomX</span></h3>
+        <div class="coin-grid">
+          <a href="blog/xel.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">XEL</span><span class="coin-name">Xelis</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="xelis">$0.2903</span><span class="delta">#2466</span></div>
+            <div class="coin-note">Hashrate medido en unidad propia</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- GhostRider -->
+      <div class="algo-group">
+        <h3 class="algo-title">GhostRider <span class="algo-note">anti-ASIC · CPU-minable</span></h3>
+        <div class="coin-grid">
+          <a href="blog/rtm.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">RTM</span><span class="coin-name">Raptoreum</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="raptoreum">$0.000054</span><span class="delta">#4208</span></div>
+            <div class="coin-note">Liquidez muy baja · verificar NonKYC</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- VerusHash -->
+      <div class="algo-group">
+        <h3 class="algo-title">VerusHash <span class="algo-note">multi-consenso</span></h3>
+        <div class="coin-grid">
+          <a href="blog/vrsc.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">VRSC</span><span class="coin-name">Verus</span></div>
+            <div class="coin-price"><span class="price-value" data-cg="verus-coin">$0.1702</span><span class="delta">#939</span></div>
+            <div class="coin-note">Ingreso CPU débil · verificar puentes</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- YesPower -->
+      <div class="algo-group">
+        <h3 class="algo-title">YesPower <span class="algo-note">variantes r16/r32 · verificar parámetro</span></h3>
+        <div class="coin-grid">
+          <a href="blog/smt.html" class="coin-card">
+            <div class="coin-header"><span class="coin-ticker">SMT</span><span class="coin-name">Smartiecoin</span></div>
+            <div class="coin-price"><span class="price-value">N/D</span><span class="delta">sin endpoint</span></div>
+            <div class="coin-note">Rendimiento estimado débil</div>
+            <span class="coin-cta">Ver guía →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBMONEDAS -->
+    <section class="section" id="submonedas">
+      <div class="section-head">
+        <h2>Submonedas internas</h2>
+        <span class="sub">puntos off-chain · canjeables por $GGCPU</span>
+      </div>
+      <div class="card">
+        <p style="font-size:.75rem;color:var(--text-dim);margin-bottom:8px">
+          Las submonedas <b>no son tokens on-chain</b>. Son puntos en la base de datos interna que se canjean por $GGCPU al retirar.
+        </p>
+        <table class="sub-table">
+          <tr><th>Submoneda</th><th>Algoritmo</th><th>Emisión</th><th>Canje</th></tr>
+          <tr><td><b>$DERO-CPU</b></td><td>AstroBWT</td><td>1,200/h</td><td>1200 = 1 GGCPU</td></tr>
+          <tr><td><b>$XMR-CPU</b></td><td>RandomX</td><td>500/h</td><td>500 = 1 GGCPU</td></tr>
+          <tr><td><b>$PEPE-CPU</b></td><td>RandomX</td><td>1,000/h</td><td>1000 = 1 GGCPU</td></tr>
+          <tr><td><b>$DOGE-CPU</b></td><td>Scrypt</td><td>5,000/h</td><td>5000 = 1 GGCPU</td></tr>
+          <tr><td><b>$SOL-CPU</b></td><td>Yescrypt</td><td>3,000/h</td><td>3000 = 1 GGCPU</td></tr>
+        </table>
+        <p class="warn">⚠ Las tasas de emisión se ajustan por dificultad y quema. No prometas rentabilidad fija.</p>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section class="section" id="roadmap">
+      <div class="section-head">
+        <h2>Roadmap</h2>
+        <span class="sub">de MVP a economía completa</span>
+      </div>
+      <div class="roadmap">
+        <div class="phase done">
+          <span class="status">DONE</span>
+          <h5>Fase 0 · Landing + foro</h5>
+          <p>Página estática, foro básico, identidad cyberpunk.</p>
+        </div>
+        <div class="phase done">
+          <span class="status">DONE</span>
+          <h5>Fase 1 · Token ERC-20 en Base</h5>
+          <p>Contrato con rol minter, supply cap 100M, pool de liquidez inicial en Uniswap.</p>
+        </div>
+        <div class="phase active">
+          <span class="status">ACTIVE</span>
+          <h5>Fase 2 · Guías por algoritmo + login Google</h5>
+          <p>Blog por moneda, precios en vivo, perfil de usuario real con Google Identity.</p>
+        </div>
+        <div class="phase">
+          <span class="status">NEXT</span>
+          <h5>Fase 3 · Agente CPU + dashboard</h5>
+          <p>Worker en Node/Go que mide trabajo, backend que valida y mintea, dashboard de usuario con retiro mínimo.</p>
+        </div>
+        <div class="phase">
+          <span class="status">NEXT</span>
+          <h5>Fase 4 · Submonedas y quema</h5>
+          <p>Puntos internos canjeables, burn automático al comprar mejoras y NFT de utilidad.</p>
+        </div>
+        <div class="phase">
+          <span class="status">LATER</span>
+          <h5>Fase 5 · Marketplace de cómputo</h5>
+          <p>Clientes externos pagan por tareas computacionales reales.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- WARN GLOBAL -->
+<div class="warn-global">
+  ⚠ GGCPU es un proyecto personal en desarrollo. Nada de lo aquí mostrado es asesoría financiera. Los precios y rentabilidades son referenciales.
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ascii">  ____  ____   ____ ____  _   _ ____
+ / ___|/ ___| / ___|  _ \| | | |  _ \
+| |  _| |  _ | |   | |_) | | | | |_) |
+| |_| | |_| || |___|  __/| |_| |  __/
+ \____|\____| \____|_|    \___/|_|
+</div>
+  <p>GGCPU &middot; CPU Mining Lab &middot; guías, foro y economía interna.</p>
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>
