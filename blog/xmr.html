@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="XMR · RandomX en CPU · guía CPU-mining GGCPU">
+<title>XMR · RandomX en CPU — GGCPU</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span><span>GGCPU</span><small>// guía XMR</small></div>
+  <nav class="nav">
+    <a href="../index.html">Inicio</a>
+    <a href="../index.html#monedas">← Volver a monedas</a>
+  </nav>
+  <div class="user-area">
+    <button class="btn-login"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Entrar con Google</span></button>
+    <div class="user-profile" hidden>
+      <img class="user-avatar" alt="avatar">
+      <span class="user-name"></span>
+      <button class="btn ghost" data-logout style="padding:5px 10px;font-size:.65rem">Salir</button>
+    </div>
+  </div>
+</div>
+
+<div class="layout layout-doc">
+  <main>
+    <section class="section">
+      <div class="section-head">
+        <h2>XMR · RandomX</h2>
+        <span class="sub">guía práctica · CPU desktop y Termux/Android</span>
+      </div>
+
+      <div class="token-card">
+        <div class="row">
+          <h3>$XMR</h3>
+          <div class="price"><span class="price-value" data-cg="monero">$605.62</span> <small>USD</small></div>
+        </div>
+        <div class="delta">RandomX · el estándar CPU-first · máxima liquidez de la categoría</div>
+        <div class="stats">
+          <div><span>Algoritmo</span><b>RandomX</b></div>
+          <div><span>Minero</span><b>XMRig</b></div>
+          <div><span>Plataforma</span><b>PC / Termux</b></div>
+          <div><span>Liquidez</span><b>alta</b></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <h4 style="color:var(--neon-2);font-size:.8rem;margin-bottom:8px;letter-spacing:1px">¿Qué es Monero?</h4>
+        <p style="font-size:.8rem;color:var(--text-dim);line-height:1.7">
+          Monero es la moneda de privacidad más grande y líquida del ecosistema CPU. Su PoW,
+          <b>RandomX</b>, fue diseñado específicamente para CPU: usa un scratchpad de 2 MB que cabe
+          en la caché L3, ejecución aleatoria de instrucciones y verificación de memoria, de modo que
+          GPU y ASIC no tienen ventaja práctica. Es la referencia contra la que se compara todo lo demás.</p>
+      </div>
+
+      <div class="warn warn-danger" style="margin-bottom:16px">
+        ⚠ RandomX en modo completo usa ~2 GB de RAM por hilo en fast mode; en light mode rinde menos. Verifica también la regulación de XMR en tu jurisdicción: algunos exchanges restringen su comercio.
+      </div>
+
+      <details class="algo" open>
+        <summary><span>1 · Requisitos</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <table>
+            <tr><th>Recurso</th><th>Mínimo</th><th>Recomendado</th></tr>
+            <tr><td>CPU</td><td>2 cores</td><td>4+ cores (Ryzen / i5)</td></tr>
+            <tr><td>RAM</td><td>4 GB</td><td>8–16 GB (fast mode cómodo)</td></tr>
+            <tr><td>Disco</td><td>~250 GB (nodo propio)</td><td>SSD 500 GB</td></tr>
+            <tr><td>Android</td><td>6 GB RAM</td><td>8 GB+ / gama alta</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>2 · Setup en PC</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+<p>Lo más simple: descarga XMRig precompilado desde releases. Para compilarlo:</p>
+<pre><code>git clone https://github.com/xmrig/xmrig.git
+cd xmrig &amp;&amp; mkdir build &amp;&amp; cd build
+cmake .. &amp;&amp; make -j$(nproc)</code></pre>
+<p>Ejecuta contra un pool (ejemplo SupportXMR) o mina solo vía P2Pool:</p>
+<pre><code>./xmrig -o pool.supportxmr.com:3333 \
+  -u TU_DIRECCION_XMR -t 4</code></pre>
+<p><b>P2Pool</b> es la vía descentralizada: corres <code>monerod</code> + <code>p2pool</code> local y minas a tu propio nodo, sin registros ni comisiones centralizadas.</p>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>3 · Setup en Termux (Android)</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+<p>RandomX funciona en Termux pero es intensivo: móvil de ≥6 GB RAM, 1–2 hilos y vigilancia de temperatura.</p>
+<pre><code>pkg update &amp;&amp; pkg upgrade -y
+pkg install git cmake clang make -y
+git clone https://github.com/xmrig/xmrig.git
+cd xmrig &amp;&amp; mkdir build &amp;&amp; cd build
+cmake .. &amp;&amp; make -j2
+./xmrig -o pool.supportxmr.com:3333 \
+  -u TU_DIRECCION_XMR -t 2</code></pre>
+<p class="warn">⚠ Sin huge pages en Android el hashrate cae bastante. Usa solo 1–2 hilos; el uso prolongado degrada la batería.</p>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>4 · Dónde comprar / vender</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <p>Monero tiene la mayor liquidez de la categoría CPU: cotiza en exchanges grandes y en swaps no custodiales. Verifica la disponibilidad exacta en tu país/jurisdicción antes de vender cantidades grandes.</p>
+          <div class="links">
+            <a href="https://www.coingecko.com/en/coins/monero" target="_blank" rel="noopener">CoinGecko</a>
+            <a href="https://www.getmonero.org" target="_blank" rel="noopener">getmonero.org</a>
+            <a href="https://xmrig.com" target="_blank" rel="noopener">XMRig</a>
+            <a href="https://p2pool.io" target="_blank" rel="noopener">P2Pool</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>5 · Rentabilidad: cómo calcularla</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <p><b>Beneficio neto diario</b> = ingreso bruto − (kW × 24 × $/kWh) − comisiones de pool − otros.</p>
+          <p>XMR es el mejor termómetro: compara tu hash/s con el de la red en sitios tipo miningpoolstats antes de comprometer hardware. La volatilidad es menor que en monedas pequeñas, pero el margen por watt también.</p>
+        </div>
+      </details>
+
+      <div class="warn-global" style="margin-top:24px">
+        ⚠ Guía educativa. Precios, algoritmo y disponibilidad de exchanges cambian. Verifica siempre en fuentes oficiales antes de enviar fondos.
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="../app.js"></script>
+
+</body>
+</html>

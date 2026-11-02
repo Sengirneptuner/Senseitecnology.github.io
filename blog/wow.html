@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="WOW · RandomX en CPU · guía CPU-mining GGCPU">
+<title>WOW · RandomX en CPU — GGCPU</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span><span>GGCPU</span><small>// guía WOW</small></div>
+  <nav class="nav">
+    <a href="../index.html">Inicio</a>
+    <a href="../index.html#monedas">← Volver a monedas</a>
+  </nav>
+  <div class="user-area">
+    <button class="btn-login"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Entrar con Google</span></button>
+    <div class="user-profile" hidden>
+      <img class="user-avatar" alt="avatar">
+      <span class="user-name"></span>
+      <button class="btn ghost" data-logout style="padding:5px 10px;font-size:.65rem">Salir</button>
+    </div>
+  </div>
+</div>
+
+<div class="layout layout-doc">
+  <main>
+    <section class="section">
+      <div class="section-head">
+        <h2>WOW · RandomX</h2>
+        <span class="sub">guía práctica · CPU desktop y Termux/Android</span>
+      </div>
+
+      <div class="token-card">
+        <div class="row">
+          <h3>$WOW</h3>
+          <div class="price"><span class="price-value" data-cg="wownero">$0.0372</span> <small>USD</small></div>
+        </div>
+        <div class="delta">RandomX · privacy fork de Monero con espíritu meme</div>
+        <div class="stats">
+          <div><span>Algoritmo</span><b>RandomX</b></div>
+          <div><span>Minero</span><b>XMRig</b></div>
+          <div><span>Plataforma</span><b>PC / Termux</b></div>
+          <div><span>Liquidez</span><b>baja</b></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <h4 style="color:var(--neon-2);font-size:.8rem;margin-bottom:8px;letter-spacing:1px">¿Qué es Wownero?</h4>
+        <p style="font-size:.8rem;color:var(--text-dim);line-height:1.7">
+          Wownero es un fork de Monero nacido en 2018 con tono meme pero base CryptoNote seria:
+          privacidad de anillo, direcciones sigilosas y RandomX como PoW. Es de los forks XMR más
+          longevos y con comunidad activa, aunque su liquidez es mucho menor que la del original.</p>
+      </div>
+
+      <div class="warn warn-danger" style="margin-bottom:16px">
+        ⚠ Es una moneda de nicho: los pools y exchanges que la listan cambian. Verifica canales oficiales de la comunidad antes de configurar y antes de vender.
+      </div>
+
+      <details class="algo" open>
+        <summary><span>1 · Requisitos</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <table>
+            <tr><th>Recurso</th><th>Mínimo</th><th>Recomendado</th></tr>
+            <tr><td>CPU</td><td>2 cores</td><td>4+ cores</td></tr>
+            <tr><td>RAM</td><td>4 GB</td><td>8 GB</td></tr>
+            <tr><td>Disco</td><td>decenas de GB (nodo)</td><td>SSD</td></tr>
+            <tr><td>Android</td><td>6 GB RAM</td><td>8 GB+</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>2 · Setup en PC</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+<p>Igual que Monero: XMRig con pool de Wownero (verifica la lista vigente en los canales oficiales):</p>
+<pre><code>./xmrig -o POOL_DE_WOW:PUERTO \
+  -u TU_DIRECCION_WOW -t 4</code></pre>
+<p>Wallet oficial desde wownero.org o el GitHub del proyecto.</p>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>3 · Setup en Termux (Android)</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+<p>RandomX en Termux, misma receta de siempre (1–2 hilos):</p>
+<pre><code>pkg update &amp;&amp; pkg install git cmake clang make -y
+git clone https://github.com/xmrig/xmrig.git
+cd xmrig &amp;&amp; mkdir build &amp;&amp; cd build
+cmake .. &amp;&amp; make -j2
+./xmrig -o POOL_DE_WOW:PUERTO -u TU_WALLET -t 2</code></pre>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>4 · Dónde comprar / vender</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <p>Liquidez reducida y concentrada en exchanges pequeños y swaps. Verifica pares activos y retiros habilitados en Markets (CoinGecko) antes de acumular.</p>
+          <div class="links">
+            <a href="https://www.coingecko.com/en/coins/wownero" target="_blank" rel="noopener">CoinGecko</a>
+            <a href="https://wownero.org" target="_blank" rel="noopener">wownero.org</a>
+            <a href="https://github.com/wownero" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>5 · Rentabilidad: cómo calcularla</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <p><b>Beneficio neto diario</b> = ingreso bruto − (kW × 24 × $/kWh) − comisiones de pool − otros.</p>
+          <p>Memes aparte, trata WOW como cualquier fork RandomX de baja liquidez: margen por watt similar a XMR pero con más riesgo de precio al salir.</p>
+        </div>
+      </details>
+
+      <div class="warn-global" style="margin-top:24px">
+        ⚠ Guía educativa. Precios, algoritmo y disponibilidad de exchanges cambian. Verifica siempre en fuentes oficiales antes de enviar fondos.
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="../app.js"></script>
+
+</body>
+</html>

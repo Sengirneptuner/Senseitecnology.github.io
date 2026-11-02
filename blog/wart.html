@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="WART · PoW propio en CPU · guía CPU-mining GGCPU">
+<title>WART · PoW propio en CPU — GGCPU</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span><span>GGCPU</span><small>// guía WART</small></div>
+  <nav class="nav">
+    <a href="../index.html">Inicio</a>
+    <a href="../index.html#monedas">← Volver a monedas</a>
+  </nav>
+  <div class="user-area">
+    <button class="btn-login"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Entrar con Google</span></button>
+    <div class="user-profile" hidden>
+      <img class="user-avatar" alt="avatar">
+      <span class="user-name"></span>
+      <button class="btn ghost" data-logout style="padding:5px 10px;font-size:.65rem">Salir</button>
+    </div>
+  </div>
+</div>
+
+<div class="layout layout-doc">
+  <main>
+    <section class="section">
+      <div class="section-head">
+        <h2>WART · PoW propio</h2>
+        <span class="sub">guía práctica · CPU desktop</span>
+      </div>
+
+      <div class="token-card">
+        <div class="row">
+          <h3>$WART</h3>
+          <div class="price"><span class="price-value" data-cg="warthog">$0.0267</span> <small>USD</small></div>
+        </div>
+        <div class="delta">consenso experimental con tareas de CPU · verificar algoritmo vigente</div>
+        <div class="stats">
+          <div><span>Algoritmo</span><b>PoW propio</b></div>
+          <div><span>Minero</span><b>verificar en docs</b></div>
+          <div><span>Plataforma</span><b>PC</b></div>
+          <div><span>Liquidez</span><b>baja</b></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <h4 style="color:var(--neon-2);font-size:.8rem;margin-bottom:8px;letter-spacing:1px">¿Qué es Warthog?</h4>
+        <p style="font-size:.8rem;color:var(--text-dim);line-height:1.7">
+          Warthog es un experimento de consenso donde la CPU ejecuta <b>tareas reales de cómputo</b>
+          combinadas con hashing, con la premisa de que el trabajo tenga utilidad. Es técnicamente
+          interesante pero joven: el algoritmo y el minero vigentes deben verificarse siempre en la
+          documentación oficial antes de invertir tiempo de máquina.</p>
+      </div>
+
+      <div class="warn warn-danger" style="margin-bottom:16px">
+        ⚠ Este lab lista WART como CPU-minable, pero el esquema exacto (qué parte hace CPU, qué parte GPU, qué minero) puede haber cambiado. Confirma en los canales oficiales antes de configurar nada.
+      </div>
+
+      <details class="algo" open>
+        <summary><span>1 · Requisitos</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <table>
+            <tr><th>Recurso</th><th>Mínimo</th><th>Recomendado</th></tr>
+            <tr><td>CPU</td><td>verificar en docs</td><td>CPU fuerte (tareas)</td></tr>
+            <tr><td>RAM</td><td>verificar</td><td>16 GB</td></tr>
+            <tr><td>Disco</td><td>verificar</td><td>SSD</td></tr>
+            <tr><td>Android</td><td>no recomendado</td><td>—</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>2 · Setup en PC</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+<p>Descarga el minero recomendado por el proyecto y sigue su guía vigente. El patrón general:</p>
+<pre><code>git clone REPO_OFICIAL_DE_WARTHOG
+# compila según instrucciones del README
+# ejecuta apuntando al pool/dirección vigentes</code></pre>
+<p>No reutilices configuraciones de otras monedas: el consenso de Warthog no es RandomX ni GhostRider.</p>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>3 · Dónde comprar / vender</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <p>Liquidez baja y mercados pequeños: verifica en CoinGecko qué exchanges tienen el par activo y con qué profundidad antes de planificar ventas.</p>
+          <div class="links">
+            <a href="https://www.coingecko.com/en/coins/warthog" target="_blank" rel="noopener">CoinGecko</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="algo">
+        <summary><span>4 · Rentabilidad: cómo calcularla</span><span class="arrow">▸</span></summary>
+        <div class="algo-body">
+          <p><b>Beneficio neto diario</b> = ingreso bruto − (kW × 24 × $/kWh) − comisiones de pool − otros.</p>
+          <p>Al depender de tareas de CPU, el rendimiento depende mucho de tu procesador concreto (IPC, RAM). Mide el ingreso/día real unos días antes de escalar.</p>
+        </div>
+      </details>
+
+      <div class="warn-global" style="margin-top:24px">
+        ⚠ Guía educativa. Precios, algoritmo y disponibilidad de exchanges cambian. Verifica siempre en fuentes oficiales antes de enviar fondos.
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="../app.js"></script>
+
+</body>
+</html>
